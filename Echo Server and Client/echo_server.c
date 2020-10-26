@@ -6,34 +6,60 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<fcntl.h>
-#include<arpa/inet.h>
-void str_cli(FILE *fp, int sockfd)
+#include <arpa/inet.h>
+
+void str_echo(int connfd)
 {
-	int bufsize=1024, cont;
-	char *buffer=malloc(bufsize);
-	while(fgets(buffer,bufsize,fp)!=NULL)
-	{
-		send(sockfd, buffer, sizeof(buffer),0);
-		if((cont=recv(sockfd,buffer,bufsize,0))>0)
-		{
-			fputs(buffer,stdout);
-		}
-	}
-	printf("\nEOF\n");
+      int n;
+      int bufsize = 1024;
+      char *buffer = malloc(bufsize);
+	//printf("inside the function");
+  again: while((n=recv(connfd, buffer, bufsize, 0))>0)	
+	     send(connfd,buffer,n,0);
+             //printf("%d n",n);
+	 if(n<0)
+            goto again;
+	
 }
-int main(int argc, char *argv[])
+int main()
 {
-	int create_socket;
-	struct sockaddr_in address;
-	if((create_socket=socket(AF_INET,SOCK_STREAM,0))>0)
-		printf("The socket was created.\n");
-	address.sin_family=AF_INET;
-	address.sin_port=htons(1500);
-	inet_pton(AF_INET, argv[1], &address.sin_addr);
-	if(connect(create_socket,(struct sockaddr*)&address, sizeof(address))==0)
-		printf("The connection was accepted with the server %s...\n",argv[1]);
-	else
-		printf("Error in connect()\n");
-	str_cli(stdin, create_socket);
-	return close(create_socket);
+  int cont,listenfd,connfd,addrlen,addrlen2,fd,pid,addrlen3;
+  
+  //char fname[256];
+  struct sockaddr_in address,cli_address;
+  if ((listenfd = socket(AF_INET,SOCK_STREAM,0)) > 0) //sockfd
+    printf("The socket was created\n");
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(15001);
+printf("The address before bind %s  ...\n",inet_ntoa(address.sin_addr) );
+    if (bind(listenfd,(struct sockaddr *)&address,sizeof(address)) == 0)
+    printf("Binding Socket\n");
+	//printf("The address after bind %s  ...\n",inet_ntoa(address.sin_addr) ); 
+  
+    listen(listenfd,3);
+     printf("server is listening\n");
+	//server local address
+     //getsockname(listenfd,(struct sockaddr *)&address,&addrlen3);
+     printf("The server's local address %s ...and port %d\n",inet_ntoa(address.sin_addr),htons(address.sin_port));
+for(;;){
+    addrlen = sizeof(struct sockaddr_in);
+    connfd = accept(listenfd,(struct sockaddr *)&cli_address,&addrlen);
+    //printf("The address %s  ...\n",inet_ntoa(address.sin_addr) );
+	addrlen2 = sizeof(struct sockaddr_in);
+	int i = getpeername(connfd,(struct sockaddr *)&cli_address,&addrlen);
+        
+            printf("The Client  %s is Connected...on port %d\n",inet_ntoa(cli_address.sin_addr),htons(cli_address.sin_port));	
+    
+     if((pid=fork())==0)
+     {
+	 printf("inside child\n");
+	  close(listenfd);
+	
+	   str_echo(connfd);
+	   exit(0);
+	}
+      
+    close(connfd);}
+    return 0 ;
 }
