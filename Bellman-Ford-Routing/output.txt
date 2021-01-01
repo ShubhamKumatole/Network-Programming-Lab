@@ -1,0 +1,45 @@
+
+Enter the number of nodes : 
+Enter the cost matrix :
+
+
+ For router 1
+	
+node 1 via 1 Distance 0 	
+node 2 via 2 Distance 2 	
+node 3 via 4 Distance 2 	
+node 4 via 4 Distance 1 	
+node 5 via 4 Distance 5 
+
+ For router 2
+	
+node 1 via 1 Distance 2 	
+node 2 via 2 Distance 0 	
+node 3 via 3 Distance 4 	
+node 4 via 1 Distance 3 	
+node 5 via 3 Distance 7 
+
+ For router 3
+	
+node 1 via 4 Distance 2 	
+node 2 via 2 Distance 4 	
+node 3 via 3 Distance 0 	
+node 4 via 4 Distance 1 	
+node 5 via 5 Distance 3 
+
+ For router 4
+	
+node 1 via 1 Distance 1 	
+node 2 via 1 Distance 3 	
+node 3 via 3 Distance 1 	
+node 4 via 4 Distance 0 	
+node 5 via 3 Distance 4 
+
+ For router 5
+	
+node 1 via 3 Distance 5 	
+node 2 via 1 Distance 7 	
+node 3 via 3 Distance 3 	
+node 4 via 3 Distance 4 	
+node 5 via 5 Distance 0 
+

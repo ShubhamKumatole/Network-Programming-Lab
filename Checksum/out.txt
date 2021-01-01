@@ -1,0 +1,52 @@
+=================for case 1===================
+Enter teh IP header information in 16 bit words
+Field 1
+Field 2
+Field 3
+Field 4
+Field 5
+Field 6
+Field 7
+Field 8
+Field 9
+
+ computed checksum at sender ffd2
+Enter teh IP header information in 16 bit words
+Field 1
+Field 2
+Field 3
+Field 4
+Field 5
+Field 6
+Field 7
+Field 8
+Field 9
+
+ computed checksum at reciever ffd2
+NO ERROR
+=================for case 2===================
+Enter teh IP header information in 16 bit words
+Field 1
+Field 2
+Field 3
+Field 4
+Field 5
+Field 6
+Field 7
+Field 8
+Field 9
+
+ computed checksum at sender ffd2
+Enter teh IP header information in 16 bit words
+Field 1
+Field 2
+Field 3
+Field 4
+Field 5
+Field 6
+Field 7
+Field 8
+Field 9
+
+ computed checksum at reciever ffb1
+Ohh NO !ERROR detected
